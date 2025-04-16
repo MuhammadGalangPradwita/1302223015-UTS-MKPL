@@ -50,6 +50,7 @@ public class Employee {
         childIdNumbers = new LinkedList<>();
     }
 
+    // Builder inner class
     public static class Builder {
         private String employeeId;
         private String firstName;
@@ -118,6 +119,7 @@ public class Employee {
         }
     }
 
+    // Setters
     public void setMonthlySalary(int grade) {
         switch (grade) {
             case 1:
@@ -156,6 +158,7 @@ public class Employee {
         childIdNumbers.add(childIdNumber);
     }
 
+    // Pajak tahunan
     public int getAnnualIncomeTax() {
         LocalDate date = LocalDate.now();
 
@@ -165,7 +168,52 @@ public class Employee {
             monthWorkingInYear = 12;
         }
 
-        return TaxFunction.calculateTax(monthlySalary, otherMonthlyIncome, monthWorkingInYear,
-                annualDeductible, spouseIdNumber == null || spouseIdNumber.isEmpty(), childIdNumbers.size());
+        return TaxFunction.calculateTax(this);
+    }
+
+    // Getters yang diperlukan TaxFunction
+    public int getMonthlySalary() {
+        return monthlySalary;
+    }
+
+    public int getOtherMonthlyIncome() {
+        return otherMonthlyIncome;
+    }
+
+    public int getMonthWorkingInYear() {
+        return monthWorkingInYear;
+    }
+
+    public int getAnnualDeductible() {
+        return annualDeductible;
+    }
+
+    public boolean isMarried() {
+        return spouseIdNumber != null && !spouseIdNumber.isEmpty();
+    }
+
+    public int getNumberOfChildren() {
+        return childIdNumbers.size();
+    }
+
+    // Opsional: Getter tambahan kalau perlu
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
+
+    public boolean isForeigner() {
+        return isForeigner;
+    }
+
+    public String getEmployeeId() {
+        return employeeId;
+    }
+
+    public String getIdNumber() {
+        return idNumber;
+    }
+
+    public String getAddress() {
+        return address;
     }
 }
