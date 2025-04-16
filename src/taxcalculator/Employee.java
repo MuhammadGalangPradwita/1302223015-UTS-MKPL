@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package taxcalculator;
+
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.LinkedList;
@@ -35,7 +36,7 @@ public class Employee {
 
 	private List<String> childNames;
 	private List<String> childIdNumbers;
-	
+        
 	public Employee(String employeeId, String firstName, String lastName, String idNumber, String address, int yearJoined, int monthJoined, int dayJoined, boolean isForeigner, boolean gender) {
 		this.employeeId = employeeId;
 		this.firstName = firstName;
@@ -57,24 +58,25 @@ public class Employee {
 	 * Jika pegawai adalah warga negara asing gaji bulanan diperbesar sebanyak 50%
 	 */
 	
-	public void setMonthlySalary(int grade) {	
-		if (grade == 1) {
-			monthlySalary = 3000000;
-			if (isForeigner) {
-				monthlySalary = (int) (3000000 * 1.5);
-			}
-		}else if (grade == 2) {
-			monthlySalary = 5000000;
-			if (isForeigner) {
-				monthlySalary = (int) (3000000 * 1.5);
-			}
-		}else if (grade == 3) {
-			monthlySalary = 7000000;
-			if (isForeigner) {
-				monthlySalary = (int) (3000000 * 1.5);
-			}
-		}
-	}
+	public void setMonthlySalary(int grade) {
+            switch (grade) {
+                case 1:
+                    monthlySalary = 3000000;
+                    break;
+                case 2:
+                    monthlySalary = 5000000;
+                    break;
+                case 3:
+                    monthlySalary = 7000000;
+                    break;
+                default:
+                    monthlySalary = 0;
+            }
+
+            if (isForeigner) {
+                monthlySalary *= 1.5;
+            }
+        }
 	
 	public void setAnnualDeductible(int deductible) {	
 		this.annualDeductible = deductible;
