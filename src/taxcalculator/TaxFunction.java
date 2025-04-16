@@ -6,6 +6,14 @@ package taxcalculator;
 
 public class TaxFunction {
 
+    // Constants to replace magic numbers
+    private static final int BASE_NON_TAXABLE_INCOME = 54000000;
+    private static final int MARRIED_ALLOWANCE = 4500000;
+    private static final int CHILD_ALLOWANCE = 4500000;
+    private static final int MAX_CHILDREN = 3;
+    private static final int MAX_MONTHS_IN_YEAR = 12;
+    private static final double TAX_RATE = 0.05;
+
     /**
      * Fungsi untuk menghitung jumlah pajak penghasilan pegawai yang harus dibayarkan setahun.
      */
@@ -22,31 +30,31 @@ public class TaxFunction {
         int netIncome = grossIncome - deductible;
         int taxableIncome = netIncome - nonTaxableIncome;
 
-        int tax = (int) Math.round(0.05 * taxableIncome);
+        int tax = (int) Math.round(TAX_RATE * taxableIncome);
         return Math.max(tax, 0);
     }
 
     // Method untuk validasi bulan kerja (maksimal 12)
     private static int validateMonthWorking(int months) {
-        if (months > 12) {
+        if (months > MAX_MONTHS_IN_YEAR) {
             System.err.println("More than 12 month working per year");
-            return 12;
+            return MAX_MONTHS_IN_YEAR;
         }
         return months;
     }
 
     // Method untuk validasi jumlah anak (maksimal 3)
     private static int validateNumberOfChildren(int children) {
-        return Math.min(children, 3);
+        return Math.min(children, MAX_CHILDREN);
     }
 
     // Method untuk menghitung penghasilan tidak kena pajak
     private static int calculateNonTaxableIncome(boolean isMarried, int numberOfChildren) {
-        int nonTaxable = 54000000;
+        int nonTaxable = BASE_NON_TAXABLE_INCOME;
         if (isMarried) {
-            nonTaxable += 4500000;
+            nonTaxable += MARRIED_ALLOWANCE;
         }
-        nonTaxable += numberOfChildren * 4500000;
+        nonTaxable += numberOfChildren * CHILD_ALLOWANCE;
         return nonTaxable;
     }
 }
