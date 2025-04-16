@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.LinkedList;
 import java.util.List;
+import static taxcalculator.Salary.*;
 /**
  *
  * @author braacellettt
@@ -61,20 +62,20 @@ public class Employee {
 	public void setMonthlySalary(int grade) {
             switch (grade) {
                 case 1:
-                    monthlySalary = 3000000;
+                    monthlySalary = gradeA;
                     break;
                 case 2:
-                    monthlySalary = 5000000;
+                    monthlySalary = gradeB;
                     break;
                 case 3:
-                    monthlySalary = 7000000;
+                    monthlySalary = gradeC;
                     break;
                 default:
                     monthlySalary = 0;
             }
 
             if (isForeigner) {
-                monthlySalary *= 1.5;
+                monthlySalary *= foreignerMultiplier;
             }
         }
 	
